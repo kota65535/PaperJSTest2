@@ -9,15 +9,12 @@ import {createTrianglePath} from "./TrianglePart";
 import {createRectPath} from "./RectPart";
 
 
-/**
- * 三角形パーツの基底クラス
- */
 export class ToolTipPart extends MultiPart {
   width: number;
   height: number;
 
   /**
-   * 三角形パーツを指定の位置・角度で作成する。
+   * ツールチップパーツを指定の位置・角度で作成する。
    * @param {Point} position  中心点の位置
    * @param {number} angle    X軸に対する絶対角度
    * @param {number} width    幅

@@ -4,23 +4,17 @@
 
 import {sprintf} from "sprintf-js";
 import {Color, Path, Point} from "paper";
-import {Part} from "./Part";
+import {DetectablePart} from "./DetectablePart";
+import {createRectPath} from "./RectPart";
+import {createTrianglePath, TrianglePart} from "./TrianglePart";
 
 
-export function createTrianglePath(width: number, height: number) {
-  let pathData = sprintf("M 0 0 L %f %f L %f %f Z",
-    width/2, height,
-    -width/2, height,
-  );
-  return new Path(pathData);
-}
 
-/**
- * 三角形パーツの基底クラス
- */
-export class TrianglePart extends Part {
-  width: number;
-  height: number;
+export class DetectableTrianglePart extends DetectablePart {
+  width: number
+  height: number
+  marginWidth: number
+  marginHeight: number
 
   /**
    * 三角形の重心がこのパーツの「位置」
@@ -35,21 +29,25 @@ export class TrianglePart extends Part {
   }
 
   /**
-   * 三角形パーツを指定の位置・角度で作成する。
+   * パーツを指定の位置・角度で作成する。
    * @param {Point} position  中心点の位置
    * @param {number} angle    X軸に対する絶対角度
    * @param {number} width    幅
    * @param {number} height   高さ
    * @param {Color} fillColor 色
    */
-  constructor(position: Point, angle: number, width: number, height: number, fillColor: string) {
+  constructor(position: Point, angle:number , width: number, height: number, marginWidth: number, marginHeight: number,
+              colors: string[], opacities: number[], isBasePartPersistent: boolean) {
     let path = createTrianglePath(width, height)
-    super(position, angle, path);
+    let detectionPath = createTrianglePath(width + marginWidth, height + marginHeight)
+    detectionPath.position = detectionPath.position.subtract(new Point(0, marginHeight*2/3))
+
+    super(position, angle, path, detectionPath, colors, opacities, isBasePartPersistent);
 
     this.width = width;
     this.height = height;
-    // this.path.fillColor = fillColor;
-    this.path.strokeColor = 'red';
+    this.marginWidth = marginWidth
+    this.marginHeight = marginHeight
 
     this.move(position, this.position);
     this.rotate(angle, this.position);

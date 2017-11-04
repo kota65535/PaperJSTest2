@@ -35,8 +35,10 @@ export abstract class Part {
 
     this.path = path
 
-    this.move(position, this.path.position);
-    this.rotate(angle, this.path.position);
+    // このクラスを継承した時、これは継承先のメソッドの呼び出しになる
+    // この時未初期化のメンバ変数を参照する可能性があるため、これを避ける
+    // this.move(position, this.path.position);
+    // this.rotate(angle, this.path.position);
   }
 
   /**
