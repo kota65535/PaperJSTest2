@@ -4,7 +4,7 @@
 
 import {sprintf} from "sprintf-js";
 import {Color, Path, Point} from "paper";
-import {Part} from "./Part";
+import {SinglePart} from "./SinglePart";
 
 
 export function createTrianglePath(width: number, height: number) {
@@ -12,13 +12,15 @@ export function createTrianglePath(width: number, height: number) {
     width/2, height,
     -width/2, height,
   );
-  return new Path(pathData);
+  let path = new Path(pathData)
+  path.position = path.position.subtract(new Point(0, height*2/3))
+  return path
 }
 
 /**
  * 三角形パーツの基底クラス
  */
-export class TrianglePart extends Part {
+export class TrianglePart extends SinglePart {
   width: number;
   height: number;
 
@@ -48,8 +50,7 @@ export class TrianglePart extends Part {
 
     this.width = width;
     this.height = height;
-    // this.path.fillColor = fillColor;
-    this.path.strokeColor = 'red';
+    this.path.fillColor = fillColor;
 
     this.move(position, this.position);
     this.rotate(angle, this.position);

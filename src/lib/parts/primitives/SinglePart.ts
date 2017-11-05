@@ -1,6 +1,7 @@
 import {Path, Point, Rectangle} from "paper";
+import {Part} from "./Part";
 
-export abstract class Part {
+export abstract class SinglePart implements Part {
 
   _path: Path;
   _angle: number;

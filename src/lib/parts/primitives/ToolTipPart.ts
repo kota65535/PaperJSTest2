@@ -3,7 +3,7 @@
  */
 
 import {sprintf} from "sprintf-js";
-import {Color, Group, Path, Point} from "paper";
+import {Color, Point} from "paper";
 import {MultiPart} from "./MultiPart";
 import {createTrianglePath} from "./TrianglePart";
 import {createRectPath} from "./RectPart";

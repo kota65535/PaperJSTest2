@@ -1,23 +1,24 @@
 import {sprintf} from "sprintf-js";
 import {Color, Path, Point} from "paper";
-import {Part} from "./Part";
+import {SinglePart} from "./SinglePart";
 
 
-function createCirclePath(radius: number) {
+export function createCirclePath(radius: number) {
   let pathData = sprintf("M 0 0 A %f,%f 0 0,1 %f %f A %f %f 0 0,1 %f %f Z",
     radius, radius,
     2 * radius, 0,
     radius, radius,
     0, 0);
-  return new Path(pathData);
-
+  let path = new Path(pathData)
+  path.position = path.position.subtract(new Point(radius, 0))
+  return path
 }
 
 
 /**
  * 円形パーツの基底クラス。
  */
-export class CirclePart extends Part {
+export class CirclePart extends SinglePart {
 
   radius: number;
 

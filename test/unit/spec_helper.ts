@@ -36,3 +36,4 @@ export function initCanvas() {
         INITIAL_ZOOM, ZOOM_UNIT, AVAILABLE_ZOOM_MIN, AVAILABLE_ZOOM_MAX);
 }
 
+

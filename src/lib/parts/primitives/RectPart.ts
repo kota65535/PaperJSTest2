@@ -3,17 +3,27 @@
  */
 
 import {sprintf} from "sprintf-js";
+import {SinglePart} from "./SinglePart";
 import {Color, Path, Point} from "paper";
-import {DetectablePart} from "./DetectablePart";
-import {createRectPath} from "./RectPart";
 
 
+export function createRectPath(width: number, height: number) {
+  let pathData = sprintf("M 0 0 L %f %f L %f %f L %f %f L %f %f L %f %f Z",
+    0, -height/2,
+    width, -height/2,
+    width, 0,
+    width, height/2,
+    0, height/2
+  );
+  let path = new Path(pathData)
+  path.position = path.position.subtract(new Point(width/2, 0))
+  return path
+}
 
-export class DetectableRectPart extends DetectablePart {
-  width: number
-  height: number
-  marginWidth: number
-  marginHeight: number
+
+export class RectPart extends SinglePart {
+  width: number;
+  height: number;
 
   /**
    * 矩形パーツを指定の位置・角度で作成する。
@@ -23,18 +33,13 @@ export class DetectableRectPart extends DetectablePart {
    * @param {number} height   高さ
    * @param {Color} fillColor 色
    */
-  constructor(position: Point, angle:number , width: number, height: number, marginWidth: number, marginHeight: number,
-              colors: string[], opacities: number[], isBasePartPersistent: boolean) {
+  constructor(position: Point, angle:number , width: number, height: number, fillColor: string) {
     let path = createRectPath(width, height)
-    let detectionPath = createRectPath(width + marginWidth, height + marginHeight)
-    detectionPath.position = detectionPath.position.subtract(new Point(marginWidth/2, 0))
-
-    super(position, angle, path, detectionPath, colors, opacities, isBasePartPersistent);
+    super(position, angle, path);
 
     this.width = width;
     this.height = height;
-    this.marginWidth = marginWidth
-    this.marginHeight = marginHeight
+    this.path.fillColor = fillColor;
 
     this.move(position, this.position);
     this.rotate(angle, this.position);

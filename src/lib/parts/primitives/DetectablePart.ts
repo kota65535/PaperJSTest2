@@ -1,5 +1,4 @@
-
-import {Part} from "./Part";
+import {SinglePart} from "./SinglePart";
 import {Path, Point} from "paper";
 
 /**
@@ -14,13 +13,13 @@ export enum DetectionState {
 /**
  * 可視領域以外に当たり判定を持つことができるパーツ。
  */
-export class DetectablePart extends Part {
-  private _detectionPath: Path
-  private _detectionState: DetectionState;
-  private _enabled: boolean;
-  private _fillColors: string[];
-  private _opacities: number[];
-  private _isBasePartPersistent: boolean;
+export class DetectablePart extends SinglePart {
+  protected _detectionPath: Path
+  protected _detectionState: DetectionState;
+  protected _enabled: boolean;
+  protected _fillColors: string[];
+  protected _opacities: number[];
+  protected _isBasePartPersistent: boolean;
 
   /**
    *

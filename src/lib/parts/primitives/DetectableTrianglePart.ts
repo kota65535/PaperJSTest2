@@ -5,9 +5,7 @@
 import {sprintf} from "sprintf-js";
 import {Color, Path, Point} from "paper";
 import {DetectablePart} from "./DetectablePart";
-import {createRectPath} from "./RectPart";
-import {createTrianglePath, TrianglePart} from "./TrianglePart";
-
+import {createTrianglePath} from "./TrianglePart";
 
 
 export class DetectableTrianglePart extends DetectablePart {
@@ -36,18 +34,13 @@ export class DetectableTrianglePart extends DetectablePart {
    * @param {number} height   高さ
    * @param {Color} fillColor 色
    */
-  constructor(position: Point, angle:number , width: number, height: number, marginWidth: number, marginHeight: number,
+  constructor(position: Point, angle:number , width: number, height: number, detectionPath: Path,
               colors: string[], opacities: number[], isBasePartPersistent: boolean) {
     let path = createTrianglePath(width, height)
-    let detectionPath = createTrianglePath(width + marginWidth, height + marginHeight)
-    detectionPath.position = detectionPath.position.subtract(new Point(0, marginHeight*2/3))
-
     super(position, angle, path, detectionPath, colors, opacities, isBasePartPersistent);
 
     this.width = width;
     this.height = height;
-    this.marginWidth = marginWidth
-    this.marginHeight = marginHeight
 
     this.move(position, this.position);
     this.rotate(angle, this.position);

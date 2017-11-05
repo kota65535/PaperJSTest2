@@ -3,25 +3,14 @@
  */
 
 import {sprintf} from "sprintf-js";
-import {Part} from "./Part";
 import {Color, Path, Point} from "paper";
+import {DetectablePart} from "./DetectablePart";
+import {createRectPath} from "./RectPart";
 
 
-export function createRectPath(width: number, height: number) {
-  let pathData = sprintf("M 0 0 L %f %f L %f %f L %f %f L %f %f L %f %f Z",
-    0, -height/2,
-    width, -height/2,
-    width, 0,
-    width, height/2,
-    0, height/2
-  );
-  return new Path(pathData);
-}
-
-
-export class RectPart extends Part {
-  width: number;
-  height: number;
+export class DetectableRectPart extends DetectablePart {
+  width: number
+  height: number
 
   /**
    * 矩形パーツを指定の位置・角度で作成する。
@@ -31,13 +20,13 @@ export class RectPart extends Part {
    * @param {number} height   高さ
    * @param {Color} fillColor 色
    */
-  constructor(position: Point, angle:number , width: number, height: number, fillColor: string) {
+  constructor(position: Point, angle:number , width: number, height: number, detectionPath: Path,
+              colors: string[], opacities: number[], isBasePartPersistent: boolean) {
     let path = createRectPath(width, height)
-    super(position, angle, path);
+    super(position, angle, path, detectionPath, colors, opacities, isBasePartPersistent);
 
     this.width = width;
     this.height = height;
-    this.path.fillColor = fillColor;
 
     this.move(position, this.position);
     this.rotate(angle, this.position);

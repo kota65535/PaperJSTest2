@@ -1,6 +1,6 @@
 import {Point} from "paper";
-import {initCanvas, customMatchers} from "test/unit/spec_helper";
-import {RectPart} from "src/lib/rails/parts/primitives/RectPart";
+import {customMatchers, initCanvas} from "test/unit/spec_helper";
+import {RectPart} from "src/lib/parts/primitives/RectPart";
 
 beforeEach(() => {
   jasmine.addMatchers(customMatchers);
