@@ -7,6 +7,7 @@ import logger from "src/logging";
 import {Path, Point} from "paper";
 import {DetectablePart} from "src/lib/parts/primitives/DetectablePart";
 import {Joint} from "./Joint";
+import {Rail} from "../rails/Rail";
 
 let log = logger("RailPart");
 
@@ -46,7 +47,7 @@ export abstract class RailPart extends DetectablePart {
   private _flowDirection: FlowDirection;
 
   // 後から設定される
-  // _rail: Rail;
+  private _rail: Rail;
   private _joints: Joint[];
   private _feederSocket: FeederSocket;
 
@@ -55,7 +56,6 @@ export abstract class RailPart extends DetectablePart {
    * レールパーツの初期化。基底クラスでは特に重要な処理は行わない。
    * 子クラスで必ず移動、回転を行うこと。
    * @param {boolean} hasFeederSocket
-   * @param {Rail} rail
    */
   constructor(point: Point, angle: number, path: Path, detectionPath: Path, hasFeederSocket: boolean) {
     super(point, angle, path, detectionPath, RailPart.FILL_COLORS, RailPart.OPACITIES, true)
@@ -74,6 +74,13 @@ export abstract class RailPart extends DetectablePart {
   get hasFeederSocket(): boolean { return this._hasFeederSocket; }
 
   /**
+   * このレールパーツが属するレール
+   * @returns {Rail}
+   */
+  get rail(): Rail { return this._rail; }
+  set rail(value: Rail) { this._rail = value; }
+
+  /**
    * このレールパーツに接続されているジョイント
    * @returns {Joint[]}
    */
@@ -84,6 +91,7 @@ export abstract class RailPart extends DetectablePart {
    * @returns {FeederSocket}
    */
   get feederSocket(): FeederSocket { return this._feederSocket; }
+  set feederSocket(value: FeederSocket) { this._feederSocket = value; }
 
   /**
    * レールパーツの始点。Read Only

@@ -38,7 +38,7 @@ export class Joint extends DetectableRectPart {
   static HEIGHT = 16;
   static HIT_RADIUS = 20;
   static FILL_COLORS = ["darkorange", "deepskyblue", "grey"];
-  static OPACITIES = [0.2, 0.4];
+  static OPACITIES = [0.4, 0.6];
   static SHRINKING_RATE = 0.7;
 
 

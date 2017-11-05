@@ -9,6 +9,7 @@ import {FlowDirection, RailPart} from "./RailPart";
 import {Path, Point} from "paper";
 // import {Storable} from "Storable";
 import {DetectableRectPart} from "src/lib/parts/primitives/DetectableRectPart";
+import {Storable} from "../rails/Storable";
 
 let log = logger("FeederSocket");
 
@@ -42,7 +43,7 @@ export interface FeederStoreState {
 /**
  * レールの両端の中点に存在するフィーダー差し込み口を表すクラス。
  */
-export class FeederSocket extends DetectableRectPart {
+export class FeederSocket extends DetectableRectPart implements Storable<FeederStoreState> {
   static WIDTH = 8;
   static HEIGHT = 15;
   static HIT_RADIUS = 20;
@@ -82,9 +83,10 @@ export class FeederSocket extends DetectableRectPart {
     this._power = 0
     this._connectedFeeder = null
 
+    // 最初は無効で未接続状態
     this.enabled = true;
     this.connectionState = FeederConnectionState.OPEN;
-    // this.enabled = false;
+    this.enabled = false;
 
     // console.log("FeederSocket", this.railPart.path.position);
   }

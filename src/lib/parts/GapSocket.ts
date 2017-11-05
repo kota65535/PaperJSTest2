@@ -55,8 +55,9 @@ export class GapSocket extends DetectableRectPart {
     this._connectedGap = null;
 
     // 最初は無効で未接続状態
-    this.enabled = true;
-    this.connectionState = GapConnectionState.OPEN;
+    this.enabled = true
+    this.connectionState = GapConnectionState.OPEN
+    this.enabled = false
   }
 
   /**
