@@ -31,6 +31,7 @@ export enum JointDirection {
 
 /**
  * レールのジョイントを表現するクラス
+ * 検出領域は丸
  */
 export class Joint extends DetectableRectPart {
 

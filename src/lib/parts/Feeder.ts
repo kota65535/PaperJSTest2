@@ -12,6 +12,7 @@ let log = logger("Feeder");
 /**
  * フィーダークラス。
  * このクラスはエディタ上の表示とイベントハンドリングのために存在し、フィーダーの実際の機能はFeederSocketクラスに集約している。
+ * 検出領域は三角形
  */
 export class Feeder extends DetectableTrianglePart {
   static WIDTH = 30

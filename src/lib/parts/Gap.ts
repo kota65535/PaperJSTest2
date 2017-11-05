@@ -10,7 +10,8 @@ import {createCirclePath} from "./primitives/CirclePart";
 let log = logger("Gap");
 
 /**
- *
+ * ギャップクラス
+ * 検出領域は丸
  */
 export class Gap extends DetectableRectPart {
   static WIDTH = 6;

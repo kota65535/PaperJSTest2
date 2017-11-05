@@ -32,6 +32,7 @@ export enum FlowDirection {
 /**
  * レールパーツの基底クラス。全てのレールは複数のレールパーツとジョイントにより構成される。
  * 単独ではなく、継承されて使用される想定。
+ * 検出領域は四角形（y軸方向のみ）
  */
 export abstract class RailPart extends DetectablePart {
   static WIDTH = 15;
