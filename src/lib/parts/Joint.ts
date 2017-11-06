@@ -49,7 +49,7 @@ export class Joint extends DetectableRectPart {
 
   _currentScale: number;
   // rail: Rail;
-  _gapSocket: GapSocket;
+  private _gapSocket: GapSocket;
 
 
   get position() {

@@ -13,7 +13,7 @@ export enum DetectionState {
 /**
  * 可視領域以外に当たり判定を持つことができるパーツ。
  */
-export class DetectablePart extends SinglePart {
+export abstract class DetectablePart extends SinglePart {
   protected _detectionPath: Path
   protected _detectionState: DetectionState;
   protected _enabled: boolean;
@@ -23,15 +23,13 @@ export class DetectablePart extends SinglePart {
 
   /**
    *
-   * @param {"paper".Point} position
-   * @param {number} angle
    * @param {string[]} colors 3要素の、それぞれ BEFORE_DETECT, DETECTING, AFTER_DETECT 時の色を表す文字列の配列。
    * @param {number[]} opacities
    * @param {boolean} isBasePartPersistent
    */
-  constructor(position: Point, angle: number, path: Path, detectionPath: Path,
+  constructor(path: Path, detectionPath: Path,
               colors: string[], opacities: number[], isBasePartPersistent: boolean) {
-    super(position, angle, path)
+    super(path)
 
     this._detectionPath = detectionPath
     this._fillColors = colors;
@@ -51,18 +49,44 @@ export class DetectablePart extends SinglePart {
   set detectionPath(value: Path) { this._detectionPath = value; }
 
   /**
-   * 各検出状態における主パーツ、検出用パーツの色
+   * 検出状態における主パーツ、検出用パーツの色のリスト
    * @returns {string[]}
    */
   get fillColors(): string[] { return this._fillColors; }
   set fillColors(value: string[]) { this._fillColors = value; }
 
   /**
-   * 各検出状態における検出用パーツの透過率
+   * BEFORE_DETECT, DETECTING 状態における検出用パーツの透過率のリスト
    * @returns {number[]}
    */
   get opacities(): number[] { return this._opacities; }
   set opacities(value: number[]) { this._opacities = value; }
+
+  /**
+   * 可視状態
+   * @returns {boolean}
+   */
+  get visible(): boolean {
+    return this.path.visible;
+  }
+
+  set visible(value: boolean) {
+    this.path.visible = value;
+    this.detectionPath.visible = value;
+  }
+
+  /**
+   * 透過率
+   * @returns {number}
+   */
+  get opacity(): number {
+    return this.path.opacity;
+  }
+
+  set opacity(value: number) {
+    this.path.opacity = value;
+    this.detectionPath.opacity = value * this.opacities[this.detectionState]
+  }
 
   /**
    * 検出の有効・無効状態。
